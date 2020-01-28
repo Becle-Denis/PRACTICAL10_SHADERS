@@ -159,15 +159,9 @@ void Game::initialize()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte) * 6, triangles, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	/* Vertex Shader which would normally be loaded from an external file */
-	const char* vs_src = "#version 400\n\r"
-		"in vec4 sv_position;"
-		"in vec4 sv_color;"
-		"out vec4 color;"
-		"void main() {"
-		"	color = sv_color;"
-		"	gl_Position = sv_position;"
-		"}"; //Vertex Shader Src
+	/* Vertex Shader */
+	std::string vsS = readFromFile("VertexShader.txt");
+	const char* vs_src = vsS.c_str(); //Vertex Shader 
 
 	DEBUG_MSG("Setting Up Vertex Shader");
 
