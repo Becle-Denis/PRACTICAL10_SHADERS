@@ -14,7 +14,6 @@
 
 using namespace std;
 using namespace sf;
-using namespace gpp;
 
 class Game
 {
@@ -33,7 +32,8 @@ private:
 	Clock clock;
 	Time elapsed;
 
-	float rotationAngle = 0.0f;
+	sf::Clock movementCLock;
+	const int VERTEX_NUMBER{ 6 };
 };
 
 #endif

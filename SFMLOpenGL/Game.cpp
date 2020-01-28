@@ -235,7 +235,197 @@ void Game::update()
 	DEBUG_MSG("Update up...");
 #endif
 
+	//Allowed movement
+	if (movementCLock.getElapsedTime() > sf::milliseconds(30))
+	{
+		movementCLock.restart();
 
+		//center calculation 
+		float sumX = 0;
+		float sumY = 0;
+		float sumZ = 0;
+		for (int i = 0; i < VERTEX_NUMBER; i++)
+		{
+			sumX += vertex[i].coordinate[0];
+			sumY += vertex[i].coordinate[1];
+			sumZ += vertex[i].coordinate[2];
+		}
+		db::Vector3 center(sumX / VERTEX_NUMBER, sumY / VERTEX_NUMBER, sumZ / VERTEX_NUMBER);
+
+		//------------ROTATING--------------------------
+
+		// rotation X 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], vertex[i].coordinate[2]);
+
+				//rotating
+				v = v - center;
+				v = v * db::Matrix3::rotationX(1);
+				v = v + center;
+
+				//reassigning value 
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+				vertex[i].coordinate[2] = v.z;
+			}
+		}
+
+
+		// rotation Y
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], vertex[i].coordinate[2]);
+
+				//rotating
+				v = v - center;
+				v = v * db::Matrix3::rotationY(1);
+				v = v + center;
+
+				//reassigning value 
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+				vertex[i].coordinate[2] = v.z;
+			}
+		}
+
+		// rotation Z 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], vertex[i].coordinate[2]);
+
+				//rotating
+				v = v - center;
+				v = v * db::Matrix3::rotationZ(1);
+				v = v + center;
+
+				//reassigning value 
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+				vertex[i].coordinate[2] = v.z;
+			}
+		}
+
+		//------------TRANSLATING------------------------
+
+		// Translating right
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], 1);
+
+				//translating
+				v = v * db::Matrix3::translate(1, 0);
+
+				//reassigning value
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+			}
+		}
+
+		// Translating left
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], 1);
+
+				//translating
+				v = v * db::Matrix3::translate(-1, 0);
+
+				//reassigning value
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+			}
+		}
+
+		// Translating up
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], 1);
+
+				//translating
+				v = v * db::Matrix3::translate(0, 1);
+
+				//reassigning value
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+			}
+		}
+
+		// Translating down
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], 1);
+
+				//translating
+				v = v * db::Matrix3::translate(0, -1);
+
+				//reassigning value
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+			}
+		}
+
+		// Scalling up
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], vertex[i].coordinate[2]);
+
+				//scalling
+				v = v - center;
+				v = v * db::Matrix3::scale3D(101);
+				v = v + center;
+
+				//reassigning value
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+				vertex[i].coordinate[2] = v.z;
+			}
+		}
+
+		// Scalling Down
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			for (int i = 0; i < VERTEX_NUMBER; i++)
+			{
+				//adapting to vector
+				db::Vector3 v(vertex[i].coordinate[0], vertex[i].coordinate[1], vertex[i].coordinate[2]);
+
+				//scalling
+				v = v - center;
+				v = v * db::Matrix3::scale3D(99);
+				v = v + center;
+
+				//reassigning value
+				vertex[i].coordinate[0] = v.x;
+				vertex[i].coordinate[1] = v.y;
+				vertex[i].coordinate[2] = v.z;
+			}
+		}
+
+	}
 
 }
 
