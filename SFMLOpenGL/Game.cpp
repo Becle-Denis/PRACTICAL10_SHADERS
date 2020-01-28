@@ -1,6 +1,29 @@
 #include <Game.h>
+#include <iostream>
+#include <fstream>
+#include <string>
 
 static bool flip;
+
+std::string readFromFile(std::string filePath)
+{
+	std::string r;
+	std::string line;
+	ifstream file(filePath);
+	if (file.is_open())
+	{
+		while (getline(file, line))
+		{
+			r += line;
+			r += "\n";
+		}
+	}
+	else
+	{
+		DEBUG_MSG("Unable to read the file " + filePath);
+	}
+	return r;
+}
 
 Game::Game() : window(VideoMode(800, 600), "OpenGL Cube Vertex and Fragment Shaders")
 {
@@ -164,13 +187,9 @@ void Game::initialize()
 		DEBUG_MSG("ERROR: Vertex Shader Compilation Error");
 	}
 
-	/* Fragment Shader which would normally be loaded from an external file */
-	const char* fs_src = "#version 400\n\r"
-		"in vec4 color;"
-		"out vec4 fColor;"
-		"void main() {"
-		"	fColor = color + vec4(0.6f, 0.0f, 0.0f, 0.3f);"
-		"}"; //Fragment Shader Src
+	/* Fragment Shader*/
+	std::string fsS = readFromFile("FragmentShader.txt");
+	const char* fs_src = fsS.c_str(); 
 
 	DEBUG_MSG("Setting Up Fragment Shader");
 
