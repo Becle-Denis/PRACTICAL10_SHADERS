@@ -3,8 +3,6 @@
 #include <fstream>
 #include <string>
 
-static bool flip;
-
 std::string readFromFile(std::string filePath)
 {
 	std::string r;
@@ -84,6 +82,8 @@ void Game::initialize()
 	GLint isLinked = 0;
 
 	glewInit();
+
+	//std::stof();
 
 	/* Vertices counter-clockwise winding */
 	vertex[0].coordinate[0] = -0.5f;
