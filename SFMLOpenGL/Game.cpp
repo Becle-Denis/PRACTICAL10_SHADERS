@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 
 std::string readFromFile(std::string filePath)
 {
@@ -82,6 +83,17 @@ void Game::initialize()
 	GLint isLinked = 0;
 
 	glewInit();
+
+	std::string cubeDataS = readFromFile("CubeData.txt");
+
+	std::stringstream cubeDataStream(cubeDataS);
+
+	while (cubeDataStream.good())
+	{
+		std::string subString;
+		getline(cubeDataStream, subString, '\n');
+		std::cout << subString << std::endl;
+	}
 
 	//std::stof();
 
