@@ -84,73 +84,41 @@ void Game::initialize()
 
 	glewInit();
 
+
+	//READ Cube Data from file 
 	std::string cubeDataS = readFromFile("CubeData.txt");
-
 	std::stringstream cubeDataStream(cubeDataS);
-
+	unsigned int vertexIndex = 0;
 	while (cubeDataStream.good())
 	{
-		std::string subString;
-		getline(cubeDataStream, subString, '\n');
-		std::cout << subString << std::endl;
+		//Getting the lines 
+		std::string subStringData;
+		std::string subStringColor;
+		getline(cubeDataStream, subStringData, '\n');
+		getline(cubeDataStream, subStringColor, '\n');
+
+		//Getting the values 
+		std::stringstream dataStream(subStringData);
+		std::stringstream colorStream(subStringColor);
+		std::string dataValue;
+		std::string colorValue;
+		if (vertexIndex < VERTEX_NUMBER)
+		{
+			//Data
+			for (int i = 0; i < 3; i++)
+			{
+				getline(dataStream, dataValue, ',');
+				vertex[vertexIndex].coordinate[i] = std::stof(dataValue);
+			}
+			//Color
+			for (int i = 0; i < 4; i++)
+			{
+				getline(colorStream, colorValue, ',');
+				vertex[vertexIndex].color[i] = std::stof(colorValue);
+			}
+		}
+		vertexIndex++;
 	}
-
-	//std::stof();
-
-	/* Vertices counter-clockwise winding */
-	vertex[0].coordinate[0] = -0.5f;
-	vertex[0].coordinate[1] = -0.5f;
-	vertex[0].coordinate[2] = 0.0f;
-
-	vertex[1].coordinate[0] = -0.5f;
-	vertex[1].coordinate[1] = 0.5f;
-	vertex[1].coordinate[2] = 0.0f;
-
-	vertex[2].coordinate[0] = 0.5f;
-	vertex[2].coordinate[1] = 0.5f;
-	vertex[2].coordinate[2] = 0.0f;
-
-	vertex[3].coordinate[0] = 0.5f;
-	vertex[3].coordinate[1] = 0.5f;
-	vertex[3].coordinate[2] = 0.0f;
-
-	vertex[4].coordinate[0] = 0.5f;
-	vertex[4].coordinate[1] = -0.5f;
-	vertex[4].coordinate[2] = 0.0f;
-
-	vertex[5].coordinate[0] = -0.5f;
-	vertex[5].coordinate[1] = -0.5f;
-	vertex[5].coordinate[2] = 0.0f;
-
-	vertex[0].color[0] = 0.5f;
-	vertex[0].color[1] = 0.0f;
-	vertex[0].color[2] = 0.5f;
-	vertex[0].color[3] = 1.0f;
-
-	vertex[1].color[0] = 0.5f;
-	vertex[1].color[1] = 0.0f;
-	vertex[1].color[2] = 0.5f;
-	vertex[1].color[3] = 1.0f;
-
-	vertex[2].color[0] = 0.5f;
-	vertex[2].color[1] = 0.0f;
-	vertex[2].color[2] = 0.5f;
-	vertex[2].color[3] = 1.0f;
-
-	vertex[3].color[0] = 0.2f;
-	vertex[3].color[1] = 0.0f;
-	vertex[3].color[2] = 0.5f;
-	vertex[3].color[3] = 1.0f;
-
-	vertex[4].color[0] = 0.0f;
-	vertex[4].color[1] = 0.2f;
-	vertex[4].color[2] = 0.5f;
-	vertex[4].color[3] = 1.0f;
-
-	vertex[5].color[0] = 0.0f;
-	vertex[5].color[1] = 0.0f;
-	vertex[5].color[2] = 0.5f;
-	vertex[5].color[3] = 1.0f;
 
 	/*Index of Poly / Triangle to Draw */
 	for (int i = 0; i < VERTEX_NUMBER; i++)
