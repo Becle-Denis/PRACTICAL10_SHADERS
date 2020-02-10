@@ -33,7 +33,7 @@ private:
 	Time elapsed;
 
 	sf::Clock movementCLock;
-	const int VERTEX_NUMBER{ 6 };
+	const int VERTEX_NUMBER{ 12 };
 };
 
 #endif

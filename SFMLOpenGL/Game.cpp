@@ -63,8 +63,8 @@ typedef struct
 	float color[4];
 } Vertex;
 
-Vertex vertex[6];
-GLubyte triangles[6];
+Vertex vertex[12];
+GLubyte triangles[12];
 
 /* Variable to hold the VBO identifier and shader data */
 GLuint	index, //Index to draw
